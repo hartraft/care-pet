@@ -5,6 +5,7 @@ import com.datastax.oss.driver.api.mapper.annotations.Entity;
 import com.datastax.oss.driver.api.mapper.annotations.PartitionKey;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang.RandomStringUtils;
+import com.github.javafaker.Faker;
 
 import java.util.UUID;
 
@@ -29,7 +30,9 @@ public class Owner {
     }
 
     public static Owner random() {
-        return new Owner(UUID.randomUUID(), RandomStringUtils.randomAlphanumeric(8), RandomStringUtils.randomAlphanumeric(10));
+	Faker faker = new Faker();
+
+        return new Owner(UUID.randomUUID(), faker.name().fullName(), faker.address().streetAddress());
     }
 
     public UUID getOwnerId() {
